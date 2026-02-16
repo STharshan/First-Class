@@ -25,19 +25,34 @@ const AppointmentSection = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log('Form submitted:', formData);
+
         setShowPopup(true); // Trigger popup
+        setFormData({
+            name: '',
+            phoneNumber: '',
+            email: '',
+            vehicleType: '',
+            preferredDate: '',
+            preferredTime: '',
+            additionalRequests: ''
+        }); // Clear form after submit
     };
 
     const { office } = footerContent;
+
+    // Encode address for Google Maps
+    const googleMapsLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+        office.address
+    )}`;
 
     return (
         <>
             <div id='contact' className="bg-[#F3F4F6] dark:bg-black py-12 px-4 sm:px-6 lg:px-8">
                 <div className="max-w-7xl mx-auto">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+
                         {/* Left Side - Form */}
                         <div className="relative">
-                            {/* Header */}
                             <div className="relative mb-8">
                                 <h2
                                     className="text-5xl sm:text-6xl lg:text-7xl font-black leading-none uppercase"
@@ -55,7 +70,6 @@ const AppointmentSection = () => {
                                 </h2>
                             </div>
 
-                            {/* Form */}
                             <form onSubmit={handleSubmit} className="relative z-10 space-y-4">
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     <input
@@ -136,14 +150,16 @@ const AppointmentSection = () => {
                             </form>
                         </div>
 
-                        {/* Right Side */}
+                        {/* Right Side - Contact Info */}
                         <div className="space-y-8 lg:pl-8 text-[#111827] dark:text-white">
                             <div>
                                 <h3 className="text-3xl sm:text-4xl font-black text-primary mb-4">
                                     PHONE
                                 </h3>
                                 <div className="space-y-2">
-                                    {office.phone}
+                                    <a href={`tel:${office.phone}`} className="hover:underline">
+                                        {office.phone}
+                                    </a>
                                 </div>
                             </div>
 
@@ -152,7 +168,9 @@ const AppointmentSection = () => {
                                     ADDRESS
                                 </h3>
                                 <p className="text-base sm:text-lg">
-                                    {office.address}
+                                    <a href={googleMapsLink} target="_blank" rel="noopener noreferrer" className="hover:underline">
+                                        {office.address}
+                                    </a>
                                 </p>
                             </div>
 
