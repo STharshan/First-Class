@@ -8,7 +8,7 @@ const Navbar = ({ logo = NavbarLogo.logo }) => {
   const [showPopup, setShowPopup] = useState(false);
 
   const navLinks = [
-    { name: "HOME", href: "#" },
+    { name: "HOME", href: "#home" },
     { name: "ABOUT US", href: "#about", popup: true },
     { name: "OUR SERVICES", href: "#services" },
     { name: "PRICING", href: "#pricing", popup: true },
@@ -45,6 +45,12 @@ const Navbar = ({ logo = NavbarLogo.logo }) => {
 
     setActiveLink(link.href);
     setIsMenuOpen(false);
+
+    // Smooth scroll for normal links
+    const section = document.querySelector(link.href);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
   };
 
   return (
@@ -81,7 +87,7 @@ const Navbar = ({ logo = NavbarLogo.logo }) => {
             <div className="hidden lg:flex items-center space-x-4">
               <ThemeToggle />
               <a
-                href="#quote"
+                href="#contact"
                 className="bg-primary text-white px-6 py-3 text-sm font-bold tracking-widest rounded"
               >
                 GET A QUOTE
@@ -122,26 +128,19 @@ const Navbar = ({ logo = NavbarLogo.logo }) => {
       {/* ===== POPUP MODAL ===== */}
       {showPopup && (
         <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-9999">
-
           <div className="bg-white rounded-xl p-6 max-w-md w-[90%] text-center">
-
-            <h2 className="text-xl font-bold mb-4">
-              Normally…
-            </h2>
-
+            <h2 className="text-xl font-bold mb-4">Normally…</h2>
             <p className="text-gray-600 mb-6 leading-relaxed">
               This button would take you to the full page experience.
               <br /><br />
               But since this is just a sample, building the entire thing here would take us a little too long.
             </p>
-
             <button
               onClick={() => setShowPopup(false)}
               className="bg-primary px-6 py-2 rounded-lg font-semibold text-white"
             >
               Got it
             </button>
-
           </div>
         </div>
       )}

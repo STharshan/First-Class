@@ -41,7 +41,17 @@ const Footer = () => {
                 {office.title}
               </h3>
               <address className="not-italic space-y-4">
-                <p className='hover:text-white cursor-pointer'>{office.address}</p>
+                {/* Clickable Address */}
+                <a
+                  href={`https://www.google.com/maps/search/${encodeURIComponent(office.address)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-white cursor-pointer block"
+                >
+                  {office.address}
+                </a>
+
+                {/* Clickable Email */}
                 <div className="pt-2">
                   <a
                     href={`mailto:${office.email}`}
@@ -50,7 +60,14 @@ const Footer = () => {
                     {office.email}
                   </a>
                 </div>
-                <p className="text-white font-bold text-xl pt-2 hover:text-white cursor-pointer">{office.phone}</p>
+
+                {/* Clickable Phone */}
+                <a
+                  href={`tel:${office.phone.replace(/\s+/g, '')}`}
+                  className="text-white font-bold text-xl pt-2 hover:text-white cursor-pointer block"
+                >
+                  {office.phone}
+                </a>
               </address>
             </div>
 
